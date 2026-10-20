@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nebula Brawl · 星云乱斗</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <div class="app">
+    <!-- 顶部栏 -->
+    <header class="topbar">
+      <div class="logo">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">NEBULA BRAWL</span>
+      </div>
+      <div class="user-area" id="userArea">
+        <button class="btn-ghost" id="loginBtn">GitHub 登录</button>
+      </div>
+    </header>
+
+    <!-- 大厅主体 -->
+    <main class="lobby" id="lobby">
+      <div class="hero">
+        <h1 class="game-title">星云乱斗</h1>
+        <p class="game-sub">NEBULA <span class="dot">·</span> BRAWL</p>
+        <p class="game-desc">多人实时飞船对战 · 击杀得分 · 60秒一局</p>
+      </div>
+
+      <div class="lobby-actions">
+        <div class="action-card">
+          <div class="action-icon">🚀</div>
+          <h3>快速匹配</h3>
+          <p>随机加入一场对局</p>
+          <button class="btn-primary" id="quickMatchBtn">开始匹配</button>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">🏠</div>
+          <h3>创建房间</h3>
+          <p>自建房间邀请好友</p>
+          <button class="btn-primary" id="createRoomBtn">创建</button>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">🔗</div>
+          <h3>加入房间</h3>
+          <p>输入房间号加入</p>
+          <button class="btn-primary" id="joinRoomBtn">加入</button>
+        </div>
+      </div>
+
+      <div class="room-list-section" id="roomListSection" style="display:none;">
+        <h3>公开房间</h3>
+        <div class="room-list" id="roomList"></div>
+      </div>
+    </main>
+
+    <!-- 房间等待页 -->
+    <section class="room-wait" id="roomWait" style="display:none;">
+      <div class="room-card">
+        <div class="room-header">
+          <button class="btn-back" id="leaveRoomBtn">← 离开</button>
+          <h2 id="roomTitle">房间</h2>
+          <span class="room-code" id="roomCode"></span>
+        </div>
+        <div class="players-grid" id="playersGrid"></div>
+        <div class="room-settings">
+          <label>每局时长
+            <select id="durationSelect">
+              <option value="60">60 秒</option>
+              <option value="120">120 秒</option>
+              <option value="180">180 秒</option>
+            </select>
+          </label>
+          <label>胜利分数
+            <select id="scoreSelect">
+              <option value="15">15 分</option>
+              <option value="25">25 分</option>
+              <option value="50">50 分</option>
+            </select>
+          </label>
+        </div>
+        <button class="btn-start" id="startBtn">开始游戏</button>
+      </div>
+    </section>
+
+    <!-- 游戏画布 -->
+    <section class="game-area" id="gameArea" style="display:none;">
+      <div class="game-hud" id="gameHud">
+        <div class="hud-left">
+          <span class="hud-label">分数</span>
+          <span class="hud-score" id="hudScore">0</span>
+        </div>
+        <div class="hud-center">
+          <span class="hud-time" id="hudTime">60</span>
+        </div>
+        <div class="hud-right">
+          <span class="hud-kills" id="hudKills">0 击杀</span>
+        </div>
+      </div>
+      <canvas id="gameCanvas"></canvas>
+      <div class="leaderboard" id="leaderboard"></div>
+      <div class="mobile-controls" id="mobileControls">
+        <div class="joystick" id="joystick">
+          <div class="joystick-knob" id="joystickKnob"></div>
+        </div>
+        <button class="fire-btn" id="fireBtn">🔥</button>
+      </div>
+      <div class="game-overlay" id="gameOverlay" style="display:none;"></div>
+    </section>
+  </div>
+
+  <!-- 弹窗 -->
+  <div class="modal" id="modal" style="display:none;">
+    <div class="modal-box">
+      <h3 id="modalTitle"></h3>
+      <input type="text" id="modalInput" placeholder="输入房间号">
+      <div class="modal-actions">
+        <button class="btn-ghost" id="modalCancel">取消</button>
+        <button class="btn-primary" id="modalConfirm">确认</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 匹配中遮罩 -->
+  <div class="matchmaking" id="matchmaking" style="display:none;">
+    <div class="spinner"></div>
+    <p>正在匹配对手...</p>
+    <button class="btn-ghost" id="cancelMatch">取消</button>
+  </div>
+
+  <script src="/js/game.js"></script>
+</body>
+</html>
